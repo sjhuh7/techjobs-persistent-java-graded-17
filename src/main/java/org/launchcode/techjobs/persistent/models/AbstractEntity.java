@@ -2,17 +2,22 @@ package org.launchcode.techjobs.persistent.models;
 
 
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.springframework.boot.autoconfigure.web.WebProperties;
 
 import java.util.Objects;
-
+@MappedSuperclass
 public abstract class AbstractEntity {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    @NotBlank(message = "Cannot leave name blank")
+    @Size(max = 100, message = "Name cannot be longer than 100 characters")
     private String name;
 
     public int getId() {
